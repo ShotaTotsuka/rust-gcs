@@ -15,14 +15,14 @@ async fn store() -> Result<(), Error> {
     let mut buf: Vec<u8> = Vec::new();
     let _ = file.read_to_end(&mut buf)?;
 
-    let mime_type = "image/png";
-    let bucket_name = "rust-test";
-    let folder_name = "avatar";
-    let file_name = "image.png";
-    let file_path = format!("{}/{}", folder_name, file_name);
+    const MIME_TYPE: &str = "image/png";
+    const BUCKET_NAME: &str = "rust-test";
+    const DIR_NAME: &str = "avatar";
+    const FILE_NAME: &str = "image.png";
+    let file_path = format!("{}/{}", DIR_NAME, FILE_NAME);
     let _object = cloud_storage::Client::new()
         .object()
-        .create(&bucket_name, buf, &file_path, mime_type)
+        .create(&BUCKET_NAME, buf, &file_path, MIME_TYPE)
         .await?;
 
     Ok(())
